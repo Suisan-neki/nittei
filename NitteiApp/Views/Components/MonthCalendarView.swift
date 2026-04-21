@@ -10,42 +10,56 @@ struct MonthCalendarView: View {
     private let weekdaySymbols = ["月", "火", "水", "木", "金", "土", "日"]
 
     var body: some View {
-        VStack(spacing: 18) {
+        VStack(spacing: 12) {
             HStack {
-                ForEach(weekdaySymbols, id: \.self) { symbol in
+                ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { index, symbol in
                     Text(symbol)
-                        .font(.system(.caption, design: .rounded, weight: .bold))
-                        .foregroundStyle(Color(red: 0.43, green: 0.47, blue: 0.52))
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(weekdayColor(for: index))
                         .frame(maxWidth: .infinity)
                 }
             }
+            .padding(.horizontal, 2)
 
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 7), spacing: 10) {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 7), spacing: 4) {
                 ForEach(Array(makeDays().enumerated()), id: \.offset) { _, day in
                     if let date = day {
+                        let indicators = store.indicatorCounts(on: date)
                         DayCellView(
                             date: date,
                             isSelected: calendar.isDate(date, inSameDayAs: selectedDate),
                             entryCount: store.entryCount(on: date),
-                            hasExam: store.hasExam(on: date)
+                            hasExam: indicators.exam > 0,
+                            practicalCount: indicators.practical,
+                            normalCount: indicators.normal
                         )
                         .onTapGesture {
                             selectedDate = date
                         }
                     } else {
-                        RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .fill(.clear)
-                            .frame(height: 74)
+                        Color.clear
+                            .frame(height: 56)
                     }
                 }
             }
         }
-        .padding(18)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30, style: .continuous))
+        .padding(.horizontal, 10)
+        .padding(.vertical, 12)
+        .background(Color.white, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
         .overlay {
-            RoundedRectangle(cornerRadius: 30, style: .continuous)
-                .stroke(Color.white.opacity(0.68), lineWidth: 1.2)
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .stroke(Color(red: 0.87, green: 0.89, blue: 0.93), lineWidth: 1)
         }
+    }
+
+    private func weekdayColor(for index: Int) -> Color {
+        if index == 5 {
+            return Color(red: 0.12, green: 0.43, blue: 0.89)
+        }
+        if index == 6 {
+            return Color(red: 0.85, green: 0.26, blue: 0.27)
+        }
+        return Color(red: 0.45, green: 0.49, blue: 0.55)
     }
 
     private func makeDays() -> [Date?] {

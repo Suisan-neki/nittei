@@ -3,7 +3,6 @@ import SwiftUI
 struct DayScheduleView: View {
     let selectedDate: Date
     let entries: [ClassEntry]
-    let onDelete: (ClassEntry) -> Void
 
     private let titleFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -15,14 +14,10 @@ struct DayScheduleView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(alignment: .firstTextBaseline) {
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: 0) {
                     Text(titleFormatter.string(from: selectedDate))
                         .font(.system(.title3, design: .rounded, weight: .heavy))
                         .foregroundStyle(Color(red: 0.15, green: 0.18, blue: 0.24))
-
-                    Text(entries.isEmpty ? "この日は登録なし" : "時間順に表示")
-                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                        .foregroundStyle(Color(red: 0.39, green: 0.42, blue: 0.48))
                 }
 
                 Spacer()
@@ -42,9 +37,7 @@ struct DayScheduleView: View {
             } else {
                 VStack(spacing: 12) {
                     ForEach(entries) { entry in
-                        ScheduleCard(entry: entry, onDelete: {
-                            onDelete(entry)
-                        })
+                        ScheduleCard(entry: entry)
                     }
                 }
             }
@@ -58,14 +51,10 @@ struct DayScheduleView: View {
     }
 
     private var emptyState: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("予定はまだ入っていません。")
+        VStack(alignment: .leading, spacing: 0) {
+            Text("予定なし")
                 .font(.system(.headline, design: .rounded, weight: .bold))
                 .foregroundStyle(Color(red: 0.20, green: 0.24, blue: 0.30))
-
-            Text("右下の「予定を追加」から、その日だけの授業や試験を入れられます。")
-                .font(.system(.subheadline, design: .rounded, weight: .medium))
-                .foregroundStyle(Color(red: 0.42, green: 0.46, blue: 0.50))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(18)
@@ -85,7 +74,6 @@ struct DayScheduleView: View {
 
 private struct ScheduleCard: View {
     let entry: ClassEntry
-    let onDelete: () -> Void
 
     var body: some View {
         HStack(alignment: .top, spacing: 14) {
@@ -123,15 +111,6 @@ private struct ScheduleCard: View {
             }
 
             Spacer(minLength: 0)
-
-            Button(role: .destructive, action: onDelete) {
-                Image(systemName: "trash")
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundStyle(Color(red: 0.67, green: 0.22, blue: 0.24))
-                    .padding(12)
-                    .background(Color.white.opacity(0.74), in: Circle())
-            }
-            .buttonStyle(.plain)
         }
         .padding(14)
         .background(cardBackground, in: RoundedRectangle(cornerRadius: 24, style: .continuous))

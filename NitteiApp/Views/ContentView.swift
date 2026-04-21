@@ -15,26 +15,32 @@ struct ContentView: View {
     }()
 
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
+        ZStack {
             backgroundView
 
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 24) {
-                    headerView
                     monthSwitcher
                     MonthCalendarView(month: selectedMonth, selectedDate: $selectedDate)
                     DayScheduleView(
                         selectedDate: selectedDate,
-                        entries: store.entries(for: selectedDate),
-                        onDelete: store.deleteEntry
+                        entries: store.entries(for: selectedDate)
                     )
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 24)
-                .padding(.bottom, 120)
+                .padding(.bottom, 32)
             }
-
-            addButton
+        }
+        .safeAreaInset(edge: .bottom) {
+            HStack {
+                Spacer()
+                addButton
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 8)
+            .padding(.bottom, 8)
+            .background(.ultraThinMaterial.opacity(0.72))
         }
         .sheet(isPresented: $isPresentingAddSheet) {
             AddEntryView(
@@ -90,19 +96,6 @@ struct ContentView: View {
         .ignoresSafeArea()
     }
 
-    private var headerView: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Nittei")
-                .font(.system(size: 40, weight: .black, design: .rounded))
-                .foregroundStyle(Color(red: 0.16, green: 0.21, blue: 0.29))
-
-            Text("2026年4月から8月までの変則時間割を、日付ベースでそのまま置いていく。試験日は赤く強調。")
-                .font(.system(.body, design: .rounded, weight: .medium))
-                .foregroundStyle(Color(red: 0.29, green: 0.34, blue: 0.40))
-                .fixedSize(horizontal: false, vertical: true)
-        }
-    }
-
     private var monthSwitcher: some View {
         HStack(spacing: 12) {
             Button {
@@ -110,21 +103,22 @@ struct ContentView: View {
             } label: {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 16, weight: .bold))
+                    .foregroundStyle(Color(red: 0.20, green: 0.24, blue: 0.32))
                     .frame(width: 42, height: 42)
-                    .background(.white.opacity(0.82), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .background(Color(red: 0.96, green: 0.97, blue: 0.99), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .stroke(Color(red: 0.84, green: 0.87, blue: 0.92), lineWidth: 1)
+                    }
             }
             .buttonStyle(.plain)
             .disabled(!canMoveMonth(by: -1))
             .opacity(canMoveMonth(by: -1) ? 1 : 0.35)
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(monthFormatter.string(from: selectedMonth))
                     .font(.system(.title2, design: .rounded, weight: .heavy))
                     .foregroundStyle(Color(red: 0.11, green: 0.16, blue: 0.24))
-
-                Text("タップすると、その日の授業が下に時系列で出ます")
-                    .font(.system(.footnote, design: .rounded, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.36, green: 0.40, blue: 0.46))
             }
 
             Spacer()
@@ -134,8 +128,13 @@ struct ContentView: View {
             } label: {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 16, weight: .bold))
+                    .foregroundStyle(Color(red: 0.20, green: 0.24, blue: 0.32))
                     .frame(width: 42, height: 42)
-                    .background(.white.opacity(0.82), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .background(Color(red: 0.96, green: 0.97, blue: 0.99), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .stroke(Color(red: 0.84, green: 0.87, blue: 0.92), lineWidth: 1)
+                    }
             }
             .buttonStyle(.plain)
             .disabled(!canMoveMonth(by: 1))
@@ -147,31 +146,39 @@ struct ContentView: View {
         Button {
             isPresentingAddSheet = true
         } label: {
-            HStack(spacing: 10) {
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 10) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 18, weight: .heavy))
+                    Text("予定を追加")
+                        .font(.system(.headline, design: .rounded, weight: .heavy))
+                }
+                .foregroundStyle(.white)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
+                .background(buttonGradient, in: Capsule())
+
                 Image(systemName: "plus")
-                    .font(.system(size: 18, weight: .heavy))
-                Text("予定を追加")
-                    .font(.system(.headline, design: .rounded, weight: .heavy))
+                    .font(.system(size: 20, weight: .heavy))
+                    .foregroundStyle(.white)
+                    .frame(width: 56, height: 56)
+                    .background(buttonGradient, in: Circle())
             }
-            .foregroundStyle(.white)
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
-            .background(
-                LinearGradient(
-                    colors: [
-                        Color(red: 0.93, green: 0.37, blue: 0.29),
-                        Color(red: 0.85, green: 0.19, blue: 0.21)
-                    ],
-                    startPoint: .leading,
-                    endPoint: .trailing
-                ),
-                in: Capsule()
-            )
+            .frame(maxWidth: 320, alignment: .trailing)
             .shadow(color: Color.black.opacity(0.14), radius: 18, x: 0, y: 10)
         }
         .buttonStyle(.plain)
-        .padding(.trailing, 20)
-        .padding(.bottom, 20)
+    }
+
+    private var buttonGradient: LinearGradient {
+        LinearGradient(
+            colors: [
+                Color(red: 0.93, green: 0.37, blue: 0.29),
+                Color(red: 0.85, green: 0.19, blue: 0.21)
+            ],
+            startPoint: .leading,
+            endPoint: .trailing
+        )
     }
 
     private func canMoveMonth(by value: Int) -> Bool {
