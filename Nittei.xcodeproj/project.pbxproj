@@ -1,0 +1,407 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		077CAFE7E58280F83B92C899 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9173001368EF17989778A679 /* Assets.xcassets */; };
+		0A6A34E241F825959C9F9FF2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DBC1E5ECB4A5C543174BE2 /* ContentView.swift */; };
+		34F14C3CFAD2E5B579E2B09E /* ClassEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5311F4ECDDBFA3AAF05355 /* ClassEntry.swift */; };
+		39E6D2943C294FD8F1B3AEE0 /* ScheduleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D43502752ECC7EC2EB6AE3 /* ScheduleStore.swift */; };
+		52CBE32F409CFF5F0F2AB385 /* DayScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982CA77B2BCAE71078BAF202 /* DayScheduleView.swift */; };
+		56E94B542B473892AC1A61B8 /* NitteiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802537E75842B565C7D6D5B5 /* NitteiApp.swift */; };
+		9531B62B25E294F2C8CCC2F2 /* MonthCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A62FC0C2E273B428CFC4605 /* MonthCalendarView.swift */; };
+		A6479E5957EF77EBBF47A7A4 /* DayCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA7C2E8BAC43AE8E6876F2F /* DayCellView.swift */; };
+		D70060796227CC90F8D88C4C /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB663A4F293BAE80100E70AC /* AddEntryView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2A5311F4ECDDBFA3AAF05355 /* ClassEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassEntry.swift; sourceTree = "<group>"; };
+		2A62FC0C2E273B428CFC4605 /* MonthCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarView.swift; sourceTree = "<group>"; };
+		6F3F915C85C04D63A6360429 /* Nittei.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Nittei.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		802537E75842B565C7D6D5B5 /* NitteiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NitteiApp.swift; sourceTree = "<group>"; };
+		9173001368EF17989778A679 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		92D43502752ECC7EC2EB6AE3 /* ScheduleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStore.swift; sourceTree = "<group>"; };
+		96DBC1E5ECB4A5C543174BE2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		982CA77B2BCAE71078BAF202 /* DayScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayScheduleView.swift; sourceTree = "<group>"; };
+		9EA7C2E8BAC43AE8E6876F2F /* DayCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCellView.swift; sourceTree = "<group>"; };
+		EB663A4F293BAE80100E70AC /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		115CAA75F01038D918100FBD /* NitteiApp */ = {
+			isa = PBXGroup;
+			children = (
+				3F8AEC2458BEE5AAACA5DF3C /* App */,
+				9264108ED33CF80F7218A888 /* Models */,
+				DF348EA3997F99F83514C862 /* Resources */,
+				843D8A03746CA3DBB58EAAC3 /* Store */,
+				26E4FE9390C38C0361C2A04C /* Views */,
+			);
+			path = NitteiApp;
+			sourceTree = "<group>";
+		};
+		26E4FE9390C38C0361C2A04C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EB663A4F293BAE80100E70AC /* AddEntryView.swift */,
+				96DBC1E5ECB4A5C543174BE2 /* ContentView.swift */,
+				982CA77B2BCAE71078BAF202 /* DayScheduleView.swift */,
+				E2D01FE7A664C9A084FE3681 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		26EC3968FA3D4A1818E5AC62 = {
+			isa = PBXGroup;
+			children = (
+				115CAA75F01038D918100FBD /* NitteiApp */,
+				491A9F165EA9E38F66C970A8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3F8AEC2458BEE5AAACA5DF3C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				802537E75842B565C7D6D5B5 /* NitteiApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		491A9F165EA9E38F66C970A8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6F3F915C85C04D63A6360429 /* Nittei.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		843D8A03746CA3DBB58EAAC3 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				92D43502752ECC7EC2EB6AE3 /* ScheduleStore.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		9264108ED33CF80F7218A888 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2A5311F4ECDDBFA3AAF05355 /* ClassEntry.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DF348EA3997F99F83514C862 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9173001368EF17989778A679 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E2D01FE7A664C9A084FE3681 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9EA7C2E8BAC43AE8E6876F2F /* DayCellView.swift */,
+				2A62FC0C2E273B428CFC4605 /* MonthCalendarView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9EADCC6FDF3673FCBB6CAD98 /* Nittei */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0360895CBEBF4D50F58BC5EC /* Build configuration list for PBXNativeTarget "Nittei" */;
+			buildPhases = (
+				EE7CB0C7E7483BCA2E843B2D /* Sources */,
+				861E38174F89A59DE065495C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Nittei;
+			packageProductDependencies = (
+			);
+			productName = Nittei;
+			productReference = 6F3F915C85C04D63A6360429 /* Nittei.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		369B396822C05D3D5BEDC512 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					9EADCC6FDF3673FCBB6CAD98 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = BCED4ECF3EC0BF852FD93A5A /* Build configuration list for PBXProject "Nittei" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 26EC3968FA3D4A1818E5AC62;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 491A9F165EA9E38F66C970A8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9EADCC6FDF3673FCBB6CAD98 /* Nittei */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		861E38174F89A59DE065495C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				077CAFE7E58280F83B92C899 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE7CB0C7E7483BCA2E843B2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D70060796227CC90F8D88C4C /* AddEntryView.swift in Sources */,
+				34F14C3CFAD2E5B579E2B09E /* ClassEntry.swift in Sources */,
+				0A6A34E241F825959C9F9FF2 /* ContentView.swift in Sources */,
+				A6479E5957EF77EBBF47A7A4 /* DayCellView.swift in Sources */,
+				52CBE32F409CFF5F0F2AB385 /* DayScheduleView.swift in Sources */,
+				9531B62B25E294F2C8CCC2F2 /* MonthCalendarView.swift in Sources */,
+				56E94B542B473892AC1A61B8 /* NitteiApp.swift in Sources */,
+				39E6D2943C294FD8F1B3AEE0 /* ScheduleStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2A38D6E70772279C23B124F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = (
+					UIInterfaceOrientationPortrait,
+					UIInterfaceOrientationPortraitUpsideDown,
+					UIInterfaceOrientationLandscapeLeft,
+					UIInterfaceOrientationLandscapeRight,
+				);
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = (
+					UIInterfaceOrientationPortrait,
+					UIInterfaceOrientationLandscapeLeft,
+					UIInterfaceOrientationLandscapeRight,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.suisan.nittei;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		33E8CD9272444D9DD4A030CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = (
+					UIInterfaceOrientationPortrait,
+					UIInterfaceOrientationPortraitUpsideDown,
+					UIInterfaceOrientationLandscapeLeft,
+					UIInterfaceOrientationLandscapeRight,
+				);
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = (
+					UIInterfaceOrientationPortrait,
+					UIInterfaceOrientationLandscapeLeft,
+					UIInterfaceOrientationLandscapeRight,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.suisan.nittei;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		39B5EF23CAAD6688F95991E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = Nittei;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		E5693B71365F069A3206640E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = Nittei;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0360895CBEBF4D50F58BC5EC /* Build configuration list for PBXNativeTarget "Nittei" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A38D6E70772279C23B124F9 /* Debug */,
+				33E8CD9272444D9DD4A030CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BCED4ECF3EC0BF852FD93A5A /* Build configuration list for PBXProject "Nittei" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5693B71365F069A3206640E /* Debug */,
+				39B5EF23CAAD6688F95991E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 369B396822C05D3D5BEDC512 /* Project object */;
+}
