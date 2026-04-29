@@ -40,10 +40,10 @@ struct ClassEntry: Identifiable, Codable, Hashable {
         }
 
         return switch period {
-        case 1: "09:00 - 10:30"
-        case 2: "10:40 - 12:10"
-        case 3: "13:00 - 14:30"
-        case 4: "14:40 - 16:10"
+        case 1: "08:45 - 10:15"
+        case 2: "10:30 - 12:00"
+        case 3: "12:50 - 14:20"
+        case 4: "14:35 - 16:05"
         case 5: "16:20 - 17:50"
         case 6: "18:00 - 19:30"
         case 7: "19:40 - 21:10"

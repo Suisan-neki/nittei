@@ -8,7 +8,7 @@ final class ScheduleStore: ObservableObject {
 
     let supportedRange: ClosedRange<Date>
 
-    private let calendar: Calendar
+    let calendar: Calendar
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     private let storageKey = "nittei.schedule.entries"
@@ -86,12 +86,7 @@ final class ScheduleStore: ObservableObject {
                 isExam: isExam
             )
         )
-        entries.sort { lhs, rhs in
-            if lhs.date == rhs.date {
-                return lhs.period < rhs.period
-            }
-            return lhs.date < rhs.date
-        }
+        sortEntries()
     }
 
     func deleteEntry(_ entry: ClassEntry) {
@@ -110,17 +105,21 @@ final class ScheduleStore: ObservableObject {
         return calendar.date(from: components) ?? date
     }
 
+    func supportedMonth(byAdding value: Int, to month: Date) -> Date? {
+        guard let newMonth = calendar.date(byAdding: .month, value: value, to: month) else {
+            return nil
+        }
+
+        let normalizedMonth = startOfMonth(for: newMonth)
+        return months.contains(normalizedMonth) ? normalizedMonth : nil
+    }
+
     private func load() {
         if
             let data = UserDefaults.standard.data(forKey: storageKey),
             let decoded = try? decoder.decode([ClassEntry].self, from: data)
         {
-            entries = decoded.sorted { lhs, rhs in
-                if lhs.date == rhs.date {
-                    return lhs.period < rhs.period
-                }
-                return lhs.date < rhs.date
-            }
+            entries = sortedEntries(decoded)
         } else {
             entries = []
         }
@@ -139,12 +138,7 @@ final class ScheduleStore: ObservableObject {
 
         entries.removeAll { seedIDs.contains($0.id) }
         entries.append(contentsOf: seedEntries)
-        entries = entries.sorted { lhs, rhs in
-            if lhs.date == rhs.date {
-                return lhs.period < rhs.period
-            }
-            return lhs.date < rhs.date
-        }
+        sortEntries()
         UserDefaults.standard.set(currentSeedVersion, forKey: seedVersionKey)
     }
 
@@ -156,17 +150,27 @@ final class ScheduleStore: ObservableObject {
         guard !missingEntries.isEmpty else { return }
 
         entries.append(contentsOf: missingEntries)
-        entries.sort { lhs, rhs in
-            if lhs.date == rhs.date {
-                return lhs.period < rhs.period
-            }
-            return lhs.date < rhs.date
-        }
+        sortEntries()
     }
 
     private func save() {
         guard let data = try? encoder.encode(entries) else { return }
         UserDefaults.standard.set(data, forKey: storageKey)
+    }
+
+    private func sortEntries() {
+        entries = sortedEntries(entries)
+    }
+
+    private func sortedEntries(_ values: [ClassEntry]) -> [ClassEntry] {
+        values.sorted(by: areInScheduleOrder)
+    }
+
+    private func areInScheduleOrder(_ lhs: ClassEntry, _ rhs: ClassEntry) -> Bool {
+        if lhs.date == rhs.date {
+            return lhs.period < rhs.period
+        }
+        return lhs.date < rhs.date
     }
 
     private static func makeDate(year: Int, month: Int, day: Int, calendar: Calendar) -> Date {

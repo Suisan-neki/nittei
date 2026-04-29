@@ -182,19 +182,11 @@ struct ContentView: View {
     }
 
     private func canMoveMonth(by value: Int) -> Bool {
-        guard let newMonth = Calendar.autoupdatingCurrent.date(byAdding: .month, value: value, to: selectedMonth) else {
-            return false
-        }
-        return store.months.contains(store.startOfMonth(for: newMonth))
+        store.supportedMonth(byAdding: value, to: selectedMonth) != nil
     }
 
     private func moveMonth(by value: Int) {
-        guard let newMonth = Calendar.autoupdatingCurrent.date(byAdding: .month, value: value, to: selectedMonth) else {
-            return
-        }
-
-        let normalizedMonth = store.startOfMonth(for: newMonth)
-        guard store.months.contains(normalizedMonth) else { return }
+        guard let normalizedMonth = store.supportedMonth(byAdding: value, to: selectedMonth) else { return }
 
         selectedMonth = normalizedMonth
         selectedDate = normalizedMonth

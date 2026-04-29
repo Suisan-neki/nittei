@@ -25,7 +25,7 @@ struct AddEntryView: View {
                     )
 
                     Picker("何限", selection: $period) {
-                        ForEach(1..<11) { value in
+                        ForEach(1..<6) { value in
                             Text("\(value)限").tag(value)
                         }
                     }

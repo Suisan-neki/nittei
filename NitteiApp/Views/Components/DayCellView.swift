@@ -4,9 +4,10 @@ struct DayCellView: View {
     let date: Date
     let isSelected: Bool
     let entryCount: Int
-    let hasExam: Bool
+    let examCount: Int
     let practicalCount: Int
     let normalCount: Int
+    let calendar: Calendar
 
     private let dayFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -14,30 +15,28 @@ struct DayCellView: View {
         formatter.locale = Locale(identifier: "ja_JP")
         return formatter
     }()
-    private let calendar = Calendar.autoupdatingCurrent
+
+    private enum Palette {
+        static let selectionBlue = Color(red: 0.10, green: 0.47, blue: 0.95)
+        static let sundayRed = Color(red: 0.85, green: 0.26, blue: 0.27)
+        static let saturdayBlue = Color(red: 0.12, green: 0.43, blue: 0.89)
+        static let weekdayText = Color(red: 0.18, green: 0.21, blue: 0.26)
+        static let practicalYellow = Color(red: 0.95, green: 0.72, blue: 0.12)
+    }
 
     var body: some View {
         VStack(spacing: 6) {
-            ZStack(alignment: .topTrailing) {
-                Text(dayFormatter.string(from: date))
-                    .font(.system(size: 16, weight: .semibold))
-                    .frame(width: 30, height: 30)
-                    .foregroundStyle(dayNumberColor)
-                    .background {
-                        if isSelected {
-                            Circle().fill(Color(red: 0.10, green: 0.47, blue: 0.95))
-                        } else if isToday {
-                            Circle().stroke(Color(red: 0.10, green: 0.47, blue: 0.95), lineWidth: 1.4)
-                        }
+            Text(dayFormatter.string(from: date))
+                .font(.system(size: 16, weight: .semibold))
+                .frame(width: 30, height: 30)
+                .foregroundStyle(dayNumberColor)
+                .background {
+                    if isSelected {
+                        Circle().fill(Palette.selectionBlue)
+                    } else if isToday {
+                        Circle().stroke(Palette.selectionBlue, lineWidth: 1.4)
                     }
-
-                if hasExam {
-                    Circle()
-                        .fill(Color(red: 0.85, green: 0.26, blue: 0.27))
-                        .frame(width: 6, height: 6)
-                        .offset(x: 2, y: 2)
                 }
-            }
 
             HStack(spacing: 3) {
                 ForEach(Array(displayDotColors.enumerated()), id: \.offset) { _, color in
@@ -63,12 +62,12 @@ struct DayCellView: View {
         }
         let weekday = calendar.component(.weekday, from: date)
         if weekday == 1 {
-            return Color(red: 0.85, green: 0.26, blue: 0.27)
+            return Palette.sundayRed
         }
         if weekday == 7 {
-            return Color(red: 0.12, green: 0.43, blue: 0.89)
+            return Palette.saturdayBlue
         }
-        return Color(red: 0.18, green: 0.21, blue: 0.26)
+        return Palette.weekdayText
     }
 
     private var displayDotCount: Int {
@@ -78,15 +77,12 @@ struct DayCellView: View {
     private var displayDotColors: [Color] {
         guard displayDotCount > 0 else { return [] }
 
-        if hasExam {
-            return Array(repeating: Color(red: 0.85, green: 0.26, blue: 0.27), count: displayDotCount)
-        }
-
-        let yellow = Array(repeating: Color(red: 0.95, green: 0.72, blue: 0.12), count: practicalCount)
-        let blue = Array(repeating: Color(red: 0.10, green: 0.47, blue: 0.95), count: normalCount)
-        let merged = yellow + blue
+        let red = Array(repeating: Palette.sundayRed, count: examCount)
+        let yellow = Array(repeating: Palette.practicalYellow, count: practicalCount)
+        let blue = Array(repeating: Palette.selectionBlue, count: normalCount)
+        let merged = red + yellow + blue
         if merged.isEmpty {
-            return Array(repeating: Color(red: 0.10, green: 0.47, blue: 0.95), count: displayDotCount)
+            return Array(repeating: Palette.selectionBlue, count: displayDotCount)
         }
         return Array(merged.prefix(displayDotCount))
     }
