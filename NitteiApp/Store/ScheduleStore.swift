@@ -13,7 +13,7 @@ final class ScheduleStore: ObservableObject {
     private let encoder = JSONEncoder()
     private let storageKey = "nittei.schedule.entries"
     private let seedVersionKey = "nittei.schedule.seedVersion"
-    private let currentSeedVersion = "2026-ophthalmology-pharmacology-dentalspecial-psychiatry-internal1-internal2-clinicalpsych-surgery1-surgery2-ent-dermatology-pediatrics-radiation-dentalradiology-teammedicine-microbio-oralpath-oralhealth-v26"
+    private let currentSeedVersion = "2026-ophthalmology-pharmacology-dentalspecial-psychiatry-internal1-internal2-clinicalpsych-surgery1-surgery2-ent-dermatology-pediatrics-radiation-dentalradiology-teammedicine-microbio-oralpath-oralhealth-v27"
 
     init(calendar: Calendar = .autoupdatingCurrent) {
         self.calendar = calendar
@@ -126,6 +126,7 @@ final class ScheduleStore: ObservableObject {
 
         seedIfNeeded()
         restoreMissingSeedEntries()
+        cleanupStoredEntries()
     }
 
     private func seedIfNeeded() {
@@ -154,6 +155,19 @@ final class ScheduleStore: ObservableObject {
         sortEntries()
     }
 
+    private func cleanupStoredEntries() {
+        let obsoleteSeedIDs = Self.obsoleteSeedIDs
+        var seenKeys: Set<StoredEntryKey> = []
+
+        entries = entries.filter { entry in
+            guard !obsoleteSeedIDs.contains(entry.id) else { return false }
+
+            let key = StoredEntryKey(entry: entry, calendar: calendar)
+            return seenKeys.insert(key).inserted
+        }
+        sortEntries()
+    }
+
     private func save() {
         guard let data = try? encoder.encode(entries) else { return }
         UserDefaults.standard.set(data, forKey: storageKey)
@@ -176,6 +190,26 @@ final class ScheduleStore: ObservableObject {
 
     private static func makeDate(year: Int, month: Int, day: Int, calendar: Calendar) -> Date {
         calendar.date(from: DateComponents(year: year, month: month, day: day)) ?? .now
+    }
+
+    private struct StoredEntryKey: Hashable {
+        let date: Date
+        let period: Int
+        let periodDisplay: String?
+        let subject: String
+        let location: String
+        let isExam: Bool
+        let customTimeRange: String?
+
+        init(entry: ClassEntry, calendar: Calendar) {
+            date = calendar.startOfDay(for: entry.date)
+            period = entry.period
+            periodDisplay = entry.periodDisplay
+            subject = entry.subject
+            location = entry.location
+            isExam = entry.isExam
+            customTimeRange = entry.customTimeRange
+        }
     }
 
     private static var obsoleteSeedIDs: Set<UUID> {
