@@ -13,7 +13,7 @@ final class ScheduleStore: ObservableObject {
     private let encoder = JSONEncoder()
     private let storageKey = "nittei.schedule.entries"
     private let seedVersionKey = "nittei.schedule.seedVersion"
-    private let currentSeedVersion = "2026-ophthalmology-pharmacology-dentalspecial-psychiatry-internal1-internal2-clinicalpsych-surgery1-radiation-microbio-oralpath-oralhealth-v20"
+    private let currentSeedVersion = "2026-ophthalmology-pharmacology-dentalspecial-psychiatry-internal1-internal2-clinicalpsych-surgery1-surgery2-ent-dermatology-pediatrics-radiation-dentalradiology-teammedicine-microbio-oralpath-oralhealth-v26"
 
     init(calendar: Calendar = .autoupdatingCurrent) {
         self.calendar = calendar
@@ -135,8 +135,9 @@ final class ScheduleStore: ObservableObject {
 
         let seedEntries = Self.seedEntries(calendar: calendar)
         let seedIDs = Set(seedEntries.map(\.id))
+        let obsoleteSeedIDs = Self.obsoleteSeedIDs
 
-        entries.removeAll { seedIDs.contains($0.id) }
+        entries.removeAll { seedIDs.contains($0.id) || obsoleteSeedIDs.contains($0.id) }
         entries.append(contentsOf: seedEntries)
         sortEntries()
         UserDefaults.standard.set(currentSeedVersion, forKey: seedVersionKey)
@@ -175,6 +176,29 @@ final class ScheduleStore: ObservableObject {
 
     private static func makeDate(year: Int, month: Int, day: Int, calendar: Calendar) -> Date {
         calendar.date(from: DateComponents(year: year, month: month, day: day)) ?? .now
+    }
+
+    private static var obsoleteSeedIDs: Set<UUID> {
+        let values = [
+            "7C2F5F58-D830-4BD7-AF56-D670D52CEC01",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CEC02",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CEC03",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CEC04",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CEC05",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CEC06",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CEC07",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CEC08",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CED01",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CED02",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CED03",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CED04",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CED05",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CED06",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CED07",
+            "7C2F5F58-D830-4BD7-AF56-D670D52CED08"
+        ]
+
+        return Set(values.compactMap(UUID.init(uuidString:)))
     }
 
     private static func seedEntries(calendar: Calendar) -> [ClassEntry] {
@@ -1140,6 +1164,326 @@ final class ScheduleStore: ObservableObject {
                 customTimeRange: "14:35 - 16:05"
             ),
             ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF101") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 10, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "外科学2: 脊椎・脊髄疾患",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF102") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 17, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "外科学2: 四肢の運動と知覚",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF103") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 24, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "外科学2: 四肢の外傷",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF104") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 1, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "外科学2: 頭部外傷",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF105") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 6, calendar: calendar),
+                period: 7,
+                periodDisplay: "4限",
+                subject: "外科学2: 脳血管障害",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "14:35 - 16:05"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF106") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 15, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "外科学2: 脳腫瘍",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF107") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 22, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "外科学2: 神経血管圧迫症候群",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF108") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 29, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "外科学2 試験",
+                location: "大講",
+                isExam: true,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF201") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 11, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "耳鼻咽喉科学: 鼻副鼻腔の解剖・生理、鼻アレルギー",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF202") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 11, calendar: calendar),
+                period: 5,
+                periodDisplay: "3限",
+                subject: "耳鼻咽喉科学: 耳下腺疾患の症候と治療",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "12:50 - 14:20"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF203") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 18, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "耳鼻咽喉科学: 気管・食道の解剖・生理、気道・食道の歯科的異物",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF204") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 18, calendar: calendar),
+                period: 5,
+                periodDisplay: "3限",
+                subject: "耳鼻咽喉科学: 耳の解剖・検査、耳疾患の症候と治療法",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "12:50 - 14:20"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF205") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 25, calendar: calendar),
+                period: 5,
+                periodDisplay: "3限",
+                subject: "耳鼻咽喉科学: 咽頭・喉頭の解剖・生理および疾患",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "12:50 - 14:20"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF206") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 2, calendar: calendar),
+                period: 5,
+                periodDisplay: "3限",
+                subject: "耳鼻咽喉科学: 頭頸部癌（咽頭・喉頭癌）の診断と治療",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "12:50 - 14:20"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF207") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 9, calendar: calendar),
+                period: 5,
+                periodDisplay: "3限",
+                subject: "耳鼻咽喉科学: 鼻副鼻腔の良性疾患など（副鼻腔炎、外傷、腫瘍）",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "12:50 - 14:20"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF208") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 16, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "耳鼻咽喉科学 試験",
+                location: "7講",
+                isExam: true,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF301") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 9, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "皮膚科学: 構造,機能,症候学",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF302") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 16, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "皮膚科学: 母斑,皮膚腫瘍",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF303") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 23, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "皮膚科学: 水疱症,膠原病",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF304") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 30, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "皮膚科学: 蕁麻疹,紅斑症,紫斑",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF305") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 7, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "皮膚科学: 皮膚感染症,角化症",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF306") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 14, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "皮膚科学: 湿疹・皮膚炎群,皮膚そう痒症",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF307") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 21, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "皮膚科学: 熱傷,薬疹",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF308") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 28, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "皮膚科学 試験",
+                location: "大講",
+                isExam: true,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF401") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 10, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "小児科学: 小児の感染症、予防接種、消化器疾患、循環器疾患",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF402") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 17, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "小児科学: 小児の血液疾患・がん",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF403") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 24, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "小児科学: 小児のアレルギー疾患・リウマチ性疾患・免疫不全",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF404") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 1, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "小児科学: 小児の発達と神経病・筋疾患",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF405") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 8, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "小児科学: 小児患児に対する歯科的連携",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF406") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 15, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "小児科学: 妊娠期の歯科治療",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF407") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 22, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "小児科学: 予備日",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF408") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 29, calendar: calendar),
+                period: 1,
+                periodDisplay: "1限",
+                subject: "小児科学 試験",
+                location: "大講",
+                isExam: true,
+                customTimeRange: "08:45 - 10:15"
+            ),
+            ClassEntry(
                 id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CE801") ?? UUID(),
                 date: makeDate(year: 2026, month: 4, day: 14, calendar: calendar),
                 period: 2,
@@ -1258,6 +1602,166 @@ final class ScheduleStore: ObservableObject {
                 subject: "放射線 テスト",
                 location: "医5講",
                 isExam: true
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF501") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 15, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "歯科放射線: 放射線物理（種類と性質）",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF502") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 15, calendar: calendar),
+                period: 5,
+                periodDisplay: "3限",
+                subject: "歯科放射線: X線フィルム、増感紙、現像",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "12:50 - 14:20"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF503") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 22, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "歯科放射線: デジタルX線検出器、X線装置、X線撮影法の原理",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF504") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 29, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "歯科放射線: 放射線生物学（人体への影響）",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF505") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 6, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "歯科放射線: 放射線の防護",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF506") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 13, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "歯科放射線: 口内法",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF507") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 14, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "歯科放射線: パノラマ撮影法",
+                location: "7講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF508") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 27, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "歯科放射線 テスト",
+                location: "7講",
+                isExam: true,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF601") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 12, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "チーム医療学",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF602") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 19, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "チーム医療学",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF603") ?? UUID(),
+                date: makeDate(year: 2026, month: 6, day: 26, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "チーム医療学",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF604") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 3, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "チーム医療学",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF605") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 10, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "チーム医療学",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF606") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 17, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "チーム医療学",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF607") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 24, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "チーム医療学",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CF608") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 31, calendar: calendar),
+                period: 3,
+                periodDisplay: "2限",
+                subject: "チーム医療学",
+                location: "大講",
+                isExam: false,
+                customTimeRange: "10:30 - 12:00"
             ),
             ClassEntry(
                 id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CEA01") ?? UUID(),
@@ -1514,9 +2018,9 @@ final class ScheduleStore: ObservableObject {
                 date: makeDate(year: 2026, month: 6, day: 10, calendar: calendar),
                 period: 5,
                 periodDisplay: "3・4限",
-                subject: "微生物実習: 実習総括・特別試験",
+                subject: "微生物実習",
                 location: "1実",
-                isExam: true,
+                isExam: false,
                 customTimeRange: "12:50 - 16:05"
             ),
             ClassEntry(
