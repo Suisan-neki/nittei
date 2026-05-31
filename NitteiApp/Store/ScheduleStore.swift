@@ -13,7 +13,7 @@ final class ScheduleStore: ObservableObject {
     private let encoder = JSONEncoder()
     private let storageKey = "nittei.schedule.entries"
     private let seedVersionKey = "nittei.schedule.seedVersion"
-    private let currentSeedVersion = "2026-ophthalmology-pharmacology-dentalspecial-psychiatry-internal1-internal2-clinicalpsych-surgery1-surgery2-ent-dermatology-pediatrics-radiation-dentalradiology-teammedicine-microbio-oralpath-oralhealth-v27"
+    private let currentSeedVersion = "2026-ophthalmology-pharmacology-dentalspecial-psychiatry-internal1-internal2-clinicalpsych-surgery1-surgery2-ent-dermatology-pediatrics-radiation-dentalradiology-teammedicine-microbio-oralpath-oralhealth-v28"
 
     init(calendar: Calendar = .autoupdatingCurrent) {
         self.calendar = calendar
@@ -1962,9 +1962,9 @@ final class ScheduleStore: ObservableObject {
                 date: makeDate(year: 2026, month: 6, day: 3, calendar: calendar),
                 period: 3,
                 periodDisplay: "3・4限",
-                subject: "口腔衛生学",
+                subject: "口腔衛生学 テスト",
                 location: "大講",
-                isExam: false,
+                isExam: true,
                 customTimeRange: "12:50 - 16:05"
             ),
             ClassEntry(
