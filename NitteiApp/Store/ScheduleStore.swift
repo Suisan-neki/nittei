@@ -13,7 +13,7 @@ final class ScheduleStore: ObservableObject {
     private let encoder = JSONEncoder()
     private let storageKey = "nittei.schedule.entries"
     private let seedVersionKey = "nittei.schedule.seedVersion"
-    private let currentSeedVersion = "2026-ophthalmology-pharmacology-dentalspecial-psychiatry-internal1-internal2-clinicalpsych-surgery1-surgery2-ent-dermatology-pediatrics-radiation-dentalradiology-teammedicine-microbio-oralpath-oralhealth-v28"
+    private let currentSeedVersion = "2026-ophthalmology-pharmacology-dentalspecial-psychiatry-internal1-internal2-clinicalpsych-surgery1-surgery2-ent-dermatology-pediatrics-radiation-dentalradiology-teammedicine-microbio-oralpath-oralhealth-v29"
 
     init(calendar: Calendar = .autoupdatingCurrent) {
         self.calendar = calendar
@@ -1875,6 +1875,26 @@ final class ScheduleStore: ObservableObject {
                 subject: "口腔病理学実習Ⅰ",
                 location: "2実",
                 isExam: false,
+                customTimeRange: "12:50 - 14:20"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CEA09") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 14, calendar: calendar),
+                period: 7,
+                periodDisplay: "4限",
+                subject: "口腔病理学実習Ⅰ",
+                location: "2実",
+                isExam: false,
+                customTimeRange: "14:35 - 16:05"
+            ),
+            ClassEntry(
+                id: UUID(uuidString: "7C2F5F58-D830-4BD7-AF56-D670D52CEA10") ?? UUID(),
+                date: makeDate(year: 2026, month: 7, day: 29, calendar: calendar),
+                period: 5,
+                periodDisplay: "3限",
+                subject: "口腔病理学実習Ⅰ テスト",
+                location: "2実",
+                isExam: true,
                 customTimeRange: "12:50 - 14:20"
             ),
             ClassEntry(
