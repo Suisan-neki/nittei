@@ -48,13 +48,6 @@ struct MonthCalendarView: View {
                     }
                 }
             }
-
-            ViewThatFits(in: .horizontal) {
-                HStack(spacing: 10) { academicLegend }
-                VStack(alignment: .leading, spacing: 6) { academicLegend }
-            }
-            .font(.caption2)
-            .foregroundStyle(.secondary)
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 12)
@@ -62,24 +55,6 @@ struct MonthCalendarView: View {
         .overlay {
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .stroke(Palette.border, lineWidth: 1)
-        }
-    }
-
-    @ViewBuilder
-    private var academicLegend: some View {
-        legendItem("振替授業", color: .pink.opacity(0.3))
-        legendItem("試験期間", color: .green.opacity(0.3))
-        legendItem("休業・休講", color: .gray.opacity(0.3))
-        legendItem("補講予備日", color: .yellow, outlined: true)
-    }
-
-    private func legendItem(_ title: String, color: Color, outlined: Bool = false) -> some View {
-        HStack(spacing: 4) {
-            RoundedRectangle(cornerRadius: 2)
-                .fill(outlined ? Color.clear : color)
-                .overlay { RoundedRectangle(cornerRadius: 2).stroke(color, lineWidth: outlined ? 1.5 : 0) }
-                .frame(width: 10, height: 10)
-            Text(title)
         }
     }
 
