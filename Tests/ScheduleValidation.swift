@@ -44,7 +44,8 @@ struct ScheduleValidation {
             precondition(AcademicCalendar.kind(on: date(20261202), calendar: calendar) == .ordinary)
             precondition(AcademicCalendar.kind(on: date(20270209), calendar: calendar) == .reserve)
             precondition(AcademicCalendar.kind(on: date(20261226), calendar: calendar) == .vacation)
-            precondition(AcademicCalendar.notes(on: date(20261008), calendar: calendar).contains { $0.contains("臨床見学") })
+            precondition(!AcademicCalendar.notes(on: date(20261008), calendar: calendar).contains { $0.contains("臨床見学") })
+            precondition(!AcademicCalendar.notes(on: date(20261203), calendar: calendar).contains { $0.contains("臨床見学") })
             precondition(!AcademicCalendar.notes(on: date(20261016), calendar: calendar).contains { $0.contains("臨床見学") })
             precondition(!AcademicCalendar.notes(on: date(20270114), calendar: calendar).contains { $0.contains("臨床見学") })
             let first = entries.first { AcademicCalendar.dateKey($0.date, calendar: calendar) == 20261005 }!
@@ -59,6 +60,11 @@ struct ScheduleValidation {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(identifier: "Asia/Tokyo")!
         let initialStore = ScheduleStore(calendar: calendar, defaults: defaults)
+        let tuesday = calendar.date(from: DateComponents(year: 2026, month: 10, day: 6))!
+        precondition(initialStore.indicatorKinds(on: tuesday) == [.normal, .normal, .practical],
+                     "Tuesday dots must follow the class order")
+        let substituteTuesday = calendar.date(from: DateComponents(year: 2027, month: 1, day: 6))!
+        precondition(initialStore.indicatorKinds(on: substituteTuesday) == [.normal, .practical])
         let springEntries = initialStore.entries.filter { AcademicCalendar.dateKey($0.date, calendar: calendar) < 20261002 }
         let manual = ClassEntry(date: calendar.date(from: DateComponents(year: 2026, month: 10, day: 2))!,
                                 period: 3, subject: "手動登録の実習", location: "手動教室", isExam: false)
@@ -79,6 +85,13 @@ struct ScheduleValidation {
         reloaded.addEntry(date: testDay, period: 5, subject: "追加試験", location: "1講", isExam: true)
         let afterAddition = ScheduleStore(calendar: calendar, defaults: defaults)
         precondition(afterAddition.hasExam(on: testDay))
+        precondition(afterAddition.indicatorKinds(on: testDay) == [.exam])
+        afterAddition.addEntry(date: testDay, period: 1, subject: "通常授業", location: "1講", isExam: false)
+        afterAddition.addEntry(date: testDay, period: 3, subject: "追加実習", location: "1実", isExam: false)
+        precondition(afterAddition.indicatorKinds(on: testDay) == [.normal, .practical, .exam],
+                     "Exam and practical dots must retain their class positions")
+        afterAddition.addEntry(date: testDay, period: 6, subject: "4件目", location: "1講", isExam: false)
+        precondition(afterAddition.indicatorKinds(on: testDay) == [.normal, .practical, .exam])
         precondition(afterAddition.entries.contains(manual))
         print("v29 migration, spring preservation, manual entries, reload and date range validated")
     }

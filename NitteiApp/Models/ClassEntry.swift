@@ -1,6 +1,10 @@
 import Foundation
 
 struct ClassEntry: Identifiable, Codable, Hashable {
+    enum IndicatorKind: Equatable {
+        case normal, practical, exam
+    }
+
     var id: UUID
     var date: Date
     var period: Int
@@ -28,6 +32,11 @@ struct ClassEntry: Identifiable, Codable, Hashable {
         self.location = location
         self.isExam = isExam
         self.customTimeRange = customTimeRange
+    }
+
+    var indicatorKind: IndicatorKind {
+        if isExam { return .exam }
+        return subject.contains("実習") ? .practical : .normal
     }
 
     var periodTitle: String {

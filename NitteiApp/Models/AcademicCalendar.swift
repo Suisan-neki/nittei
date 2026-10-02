@@ -87,14 +87,6 @@ enum AcademicCalendar {
         }
         if key == 20270115 { notes.append("共通テスト前日：3年生の金曜授業は休講") }
 
-        if (20261002...20261201).contains(key),
-           let weekday = teachingWeekday(on: date, calendar: calendar), [5, 6].contains(weekday) {
-            notes.append("臨床見学演習・実習Ⅱ：午後に時間割枠あり。実施日・時間・場所は別途指示（歯科矯正学・小児歯科学）")
-        }
-        if (20261202...20270208).contains(key),
-           teachingWeekday(on: date, calendar: calendar) == 5 {
-            notes.append("臨床見学演習・実習Ⅱ：午後に時間割枠あり。実施日・時間・場所は別途指示（歯科矯正学・小児歯科学）")
-        }
         return notes
     }
 }
