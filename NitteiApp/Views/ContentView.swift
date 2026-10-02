@@ -24,7 +24,8 @@ struct ContentView: View {
                     MonthCalendarView(month: selectedMonth, selectedDate: $selectedDate)
                     DayScheduleView(
                         selectedDate: selectedDate,
-                        entries: store.entries(for: selectedDate)
+                        entries: store.entries(for: selectedDate),
+                        academicNotes: AcademicCalendar.notes(on: selectedDate, calendar: store.calendar)
                     )
                 }
                 .padding(.horizontal, 20)

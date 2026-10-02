@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 @MainActor
 final class ScheduleStore: ObservableObject {
@@ -11,15 +12,17 @@ final class ScheduleStore: ObservableObject {
     let calendar: Calendar
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
+    private let defaults: UserDefaults
     private let storageKey = "nittei.schedule.entries"
     private let seedVersionKey = "nittei.schedule.seedVersion"
-    private let currentSeedVersion = "2026-ophthalmology-pharmacology-dentalspecial-psychiatry-internal1-internal2-clinicalpsych-surgery1-surgery2-ent-dermatology-pediatrics-radiation-dentalradiology-teammedicine-microbio-oralpath-oralhealth-v29"
+    private let currentSeedVersion = "2026-dentistry-year3-autumn-v30"
 
-    init(calendar: Calendar = .autoupdatingCurrent) {
+    init(calendar: Calendar = .autoupdatingCurrent, defaults: UserDefaults = .standard) {
         self.calendar = calendar
+        self.defaults = defaults
 
         let startDate = ScheduleStore.makeDate(year: 2026, month: 4, day: 1, calendar: calendar)
-        let endDate = ScheduleStore.makeDate(year: 2026, month: 8, day: 31, calendar: calendar)
+        let endDate = ScheduleStore.makeDate(year: 2027, month: 3, day: 31, calendar: calendar)
         self.supportedRange = startDate...endDate
 
         encoder.dateEncodingStrategy = .iso8601
@@ -116,7 +119,7 @@ final class ScheduleStore: ObservableObject {
 
     private func load() {
         if
-            let data = UserDefaults.standard.data(forKey: storageKey),
+            let data = defaults.data(forKey: storageKey),
             let decoded = try? decoder.decode([ClassEntry].self, from: data)
         {
             entries = sortedEntries(decoded)
@@ -130,7 +133,7 @@ final class ScheduleStore: ObservableObject {
     }
 
     private func seedIfNeeded() {
-        guard UserDefaults.standard.string(forKey: seedVersionKey) != currentSeedVersion else {
+        guard defaults.string(forKey: seedVersionKey) != currentSeedVersion else {
             return
         }
 
@@ -141,7 +144,7 @@ final class ScheduleStore: ObservableObject {
         entries.removeAll { seedIDs.contains($0.id) || obsoleteSeedIDs.contains($0.id) }
         entries.append(contentsOf: seedEntries)
         sortEntries()
-        UserDefaults.standard.set(currentSeedVersion, forKey: seedVersionKey)
+        defaults.set(currentSeedVersion, forKey: seedVersionKey)
     }
 
     private func restoreMissingSeedEntries() {
@@ -170,7 +173,7 @@ final class ScheduleStore: ObservableObject {
 
     private func save() {
         guard let data = try? encoder.encode(entries) else { return }
-        UserDefaults.standard.set(data, forKey: storageKey)
+        defaults.set(data, forKey: storageKey)
     }
 
     private func sortEntries() {
@@ -2137,6 +2140,6 @@ final class ScheduleStore: ObservableObject {
                 isExam: true,
                 customTimeRange: "12:50 - 16:05"
             )
-        ]
+        ] + AutumnSchedule.entries(calendar: calendar)
     }
 }

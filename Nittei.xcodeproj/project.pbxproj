@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A02600000000000000000001 /* AcademicCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02600000000000000000002 /* AcademicCalendar.swift */; };
+		A02600000000000000000003 /* AutumnSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02600000000000000000004 /* AutumnSchedule.swift */; };
 		077CAFE7E58280F83B92C899 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9173001368EF17989778A679 /* Assets.xcassets */; };
 		0A6A34E241F825959C9F9FF2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DBC1E5ECB4A5C543174BE2 /* ContentView.swift */; };
 		34F14C3CFAD2E5B579E2B09E /* ClassEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5311F4ECDDBFA3AAF05355 /* ClassEntry.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A02600000000000000000002 /* AcademicCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicCalendar.swift; sourceTree = "<group>"; };
+		A02600000000000000000004 /* AutumnSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutumnSchedule.swift; sourceTree = "<group>"; };
 		2A5311F4ECDDBFA3AAF05355 /* ClassEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassEntry.swift; sourceTree = "<group>"; };
 		2A62FC0C2E273B428CFC4605 /* MonthCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarView.swift; sourceTree = "<group>"; };
 		6F3F915C85C04D63A6360429 /* Nittei.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nittei.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +86,7 @@
 		843D8A03746CA3DBB58EAAC3 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				A02600000000000000000004 /* AutumnSchedule.swift */,
 				92D43502752ECC7EC2EB6AE3 /* ScheduleStore.swift */,
 			);
 			path = Store;
@@ -90,6 +95,7 @@
 		9264108ED33CF80F7218A888 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A02600000000000000000002 /* AcademicCalendar.swift */,
 				2A5311F4ECDDBFA3AAF05355 /* ClassEntry.swift */,
 			);
 			path = Models;
@@ -182,6 +188,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A02600000000000000000001 /* AcademicCalendar.swift in Sources */,
+				A02600000000000000000003 /* AutumnSchedule.swift in Sources */,
 				D70060796227CC90F8D88C4C /* AddEntryView.swift in Sources */,
 				34F14C3CFAD2E5B579E2B09E /* ClassEntry.swift in Sources */,
 				0A6A34E241F825959C9F9FF2 /* ContentView.swift in Sources */,

@@ -1,0 +1,17 @@
+name: Validate schedule and iOS build
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate schedule and saved-data migration
+        run: bash scripts/validate-schedule.sh
+      - name: Build iOS simulator application
+        run: xcodebuild -project Nittei.xcodeproj -scheme Nittei -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build

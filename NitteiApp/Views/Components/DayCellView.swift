@@ -8,6 +8,7 @@ struct DayCellView: View {
     let practicalCount: Int
     let normalCount: Int
     let calendar: Calendar
+    let academicKind: AcademicCalendar.DayKind
 
     private let dayFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -49,7 +50,16 @@ struct DayCellView: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 56)
+        .background(academicBackground, in: RoundedRectangle(cornerRadius: 10))
+        .overlay {
+            if academicKind == .reserve {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Palette.practicalYellow, lineWidth: 1.5)
+            }
+        }
         .contentShape(Rectangle())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityText)
     }
 
     private var isToday: Bool {
@@ -61,13 +71,27 @@ struct DayCellView: View {
             return .white
         }
         let weekday = calendar.component(.weekday, from: date)
-        if weekday == 1 {
+        if weekday == 1 || academicKind == .holiday {
             return Palette.sundayRed
         }
         if weekday == 7 {
             return Palette.saturdayBlue
         }
         return Palette.weekdayText
+    }
+
+    private var academicBackground: Color {
+        switch academicKind {
+        case .substitute: Color.pink.opacity(0.16)
+        case .examPeriod: Color.green.opacity(0.15)
+        case .vacation, .cancelled: Color.gray.opacity(0.15)
+        default: Color.clear
+        }
+    }
+
+    private var accessibilityText: String {
+        let notes = AcademicCalendar.notes(on: date, calendar: calendar).joined(separator: "。")
+        return "\(calendar.component(.day, from: date))日、登録\(entryCount)件。\(notes)"
     }
 
     private var displayDotCount: Int {
