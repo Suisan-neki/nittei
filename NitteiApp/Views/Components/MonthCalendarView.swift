@@ -31,14 +31,11 @@ struct MonthCalendarView: View {
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 7), spacing: 4) {
                 ForEach(Array(makeDays().enumerated()), id: \.offset) { _, day in
                     if let date = day {
-                        let indicators = store.indicatorCounts(on: date)
                         DayCellView(
                             date: date,
                             isSelected: calendar.isDate(date, inSameDayAs: selectedDate),
                             entryCount: store.entryCount(on: date),
-                            examCount: indicators.exam,
-                            practicalCount: indicators.practical,
-                            normalCount: indicators.normal,
+                            indicatorKinds: store.indicatorKinds(on: date),
                             calendar: calendar,
                             academicKind: AcademicCalendar.kind(on: date, calendar: calendar)
                         )

@@ -4,9 +4,7 @@ struct DayCellView: View {
     let date: Date
     let isSelected: Bool
     let entryCount: Int
-    let examCount: Int
-    let practicalCount: Int
-    let normalCount: Int
+    let indicatorKinds: [ClassEntry.IndicatorKind]
     let calendar: Calendar
     let academicKind: AcademicCalendar.DayKind
 
@@ -94,20 +92,13 @@ struct DayCellView: View {
         return "\(calendar.component(.day, from: date))日、登録\(entryCount)件。\(notes)"
     }
 
-    private var displayDotCount: Int {
-        min(entryCount, 3)
-    }
-
     private var displayDotColors: [Color] {
-        guard displayDotCount > 0 else { return [] }
-
-        let red = Array(repeating: Palette.sundayRed, count: examCount)
-        let yellow = Array(repeating: Palette.practicalYellow, count: practicalCount)
-        let blue = Array(repeating: Palette.selectionBlue, count: normalCount)
-        let merged = red + yellow + blue
-        if merged.isEmpty {
-            return Array(repeating: Palette.selectionBlue, count: displayDotCount)
+        indicatorKinds.map { kind in
+            switch kind {
+            case .normal: Palette.selectionBlue
+            case .practical: Palette.practicalYellow
+            case .exam: Palette.sundayRed
+            }
         }
-        return Array(merged.prefix(displayDotCount))
     }
 }

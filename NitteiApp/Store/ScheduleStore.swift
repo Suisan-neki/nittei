@@ -68,12 +68,8 @@ final class ScheduleStore: ObservableObject {
         entries(for: date).contains(where: \.isExam)
     }
 
-    func indicatorCounts(on date: Date) -> (normal: Int, practical: Int, exam: Int) {
-        let dayEntries = entries(for: date)
-        let examCount = dayEntries.filter(\.isExam).count
-        let practicalCount = dayEntries.filter { !$0.isExam && $0.subject.contains("実習") }.count
-        let normalCount = max(dayEntries.count - examCount - practicalCount, 0)
-        return (normal: normalCount, practical: practicalCount, exam: examCount)
+    func indicatorKinds(on date: Date) -> [ClassEntry.IndicatorKind] {
+        entries(for: date).prefix(3).map(\.indicatorKind)
     }
 
     func addEntry(date: Date, period: Int, subject: String, location: String, isExam: Bool) {
