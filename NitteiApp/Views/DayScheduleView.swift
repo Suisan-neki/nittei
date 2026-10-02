@@ -3,6 +3,7 @@ import SwiftUI
 struct DayScheduleView: View {
     let selectedDate: Date
     let entries: [ClassEntry]
+    let academicNotes: [String]
 
     private let titleFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -32,6 +33,17 @@ struct DayScheduleView: View {
                 }
             }
 
+            if !academicNotes.isEmpty {
+                VStack(alignment: .leading, spacing: 8) {
+                    ForEach(academicNotes, id: \.self) { note in
+                        Text(note)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+            }
+
             if entries.isEmpty {
                 emptyState
             } else {
@@ -52,7 +64,7 @@ struct DayScheduleView: View {
 
     private var emptyState: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("予定なし")
+            Text("登録された授業なし")
                 .font(.system(.headline, design: .rounded, weight: .bold))
                 .foregroundStyle(Color(red: 0.20, green: 0.24, blue: 0.30))
         }
