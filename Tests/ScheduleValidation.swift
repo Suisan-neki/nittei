@@ -40,6 +40,13 @@ struct ScheduleValidation {
             precondition(entries.map(\.id) == AutumnSchedule.entries(calendar: calendar).map(\.id))
             precondition(!entries.contains { $0.subject.contains("臨床見学") })
             precondition(AcademicCalendar.kind(on: date(20261125), calendar: calendar) == .examPeriod)
+            precondition(AcademicCalendar.kind(on: date(20261127), calendar: calendar) == .examPeriod)
+            precondition(AcademicCalendar.kind(on: date(20261130), calendar: calendar) == .examPeriod)
+            for key in [20260606, 20260607, 20260801, 20260802, 20261129, 20270206, 20270207] {
+                precondition(AcademicCalendar.kind(on: date(key), calendar: calendar) == .ordinary,
+                             "\(zone) \(key): Weekend must not have an exam-period background")
+            }
+            precondition(AcademicCalendar.kind(on: date(20261128), calendar: calendar) == .reserve)
             precondition(AcademicCalendar.kind(on: date(20261201), calendar: calendar) == .examPeriod)
             precondition(AcademicCalendar.kind(on: date(20261202), calendar: calendar) == .ordinary)
             precondition(AcademicCalendar.kind(on: date(20270209), calendar: calendar) == .reserve)

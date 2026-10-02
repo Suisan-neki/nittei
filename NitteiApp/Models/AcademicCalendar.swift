@@ -57,7 +57,8 @@ enum AcademicCalendar {
         if key == 20270115 { return .cancelled }
         if vacationName(for: key) != nil { return .vacation }
         if holidays[key] != nil { return .holiday }
-        if examPeriodName(for: key) != nil { return .examPeriod }
+        if examPeriodName(for: key) != nil,
+           teachingWeekday(on: date, calendar: calendar) != nil { return .examPeriod }
         return .ordinary
     }
 

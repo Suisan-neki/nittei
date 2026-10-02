@@ -38,7 +38,7 @@ struct DayScheduleView: View {
                     ForEach(academicNotes, id: \.self) { note in
                         Text(note)
                             .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color(red: 0.33, green: 0.37, blue: 0.44))
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
