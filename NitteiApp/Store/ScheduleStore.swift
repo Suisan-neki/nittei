@@ -15,7 +15,7 @@ final class ScheduleStore: ObservableObject {
     private let defaults: UserDefaults
     private let storageKey = "nittei.schedule.entries"
     private let seedVersionKey = "nittei.schedule.seedVersion"
-    private let currentSeedVersion = "2026-dentistry-year3-autumn-v30"
+    private let currentSeedVersion = "2026-dentistry-year3-autumn-v31"
 
     init(calendar: Calendar = .autoupdatingCurrent, defaults: UserDefaults = .standard) {
         self.calendar = calendar
