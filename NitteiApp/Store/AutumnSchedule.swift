@@ -2,6 +2,7 @@ import Foundation
 
 /// 2026/9/11版の歯学科時間割、3年生の第3・第4ターム。
 /// 授業期間末尾の試験期間もPDFの範囲どおり登録し、個別試験は別途追加する。
+/// 臨床見学演習・実習Ⅱは、2026年10月配布のB班ローテーション表で判明した日程を追加する。
 enum AutumnSchedule {
     private struct Lesson {
         let code: Int
@@ -26,6 +27,27 @@ enum AutumnSchedule {
             self.subject = subject
             self.location = location
             self.onlyDays = onlyDays
+        }
+    }
+
+    private struct FixedLesson {
+        let code: Int
+        let day: Int
+        let period: Int
+        let periodDisplay: String
+        let subject: String
+        let location: String
+        let customTimeRange: String
+
+        init(_ code: Int, _ day: Int, _ period: Int, _ periodDisplay: String,
+             _ subject: String, _ location: String, _ customTimeRange: String) {
+            self.code = code
+            self.day = day
+            self.period = period
+            self.periodDisplay = periodDisplay
+            self.subject = subject
+            self.location = location
+            self.customTimeRange = customTimeRange
         }
     }
 
@@ -58,6 +80,37 @@ enum AutumnSchedule {
         Lesson(414, 20270129, 20270129, 6, 5, 5, "歯周病学Ⅱ", "7講（A棟6F）")
     ]
 
+    private static let fixedLessons: [FixedLesson] = [
+        FixedLesson(3501, 20261008, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：歯周", "歯周", "13:30 - 16:05"),
+        FixedLesson(3502, 20261009, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：歯科放射線科",
+                    "研究棟A 5階 歯科放射線学セミナー室（12:50集合）", "12:50 - 16:05"),
+        FixedLesson(3503, 20261015, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：歯科保存", "歯科保存", "12:50 - 16:05"),
+        FixedLesson(3504, 20261022, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：歯診", "歯診", "12:50 - 16:05"),
+        FixedLesson(3505, 20261023, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：口腔検査センター",
+                    "診療棟3階 口腔検査センター（白衣・13:45集合）", "13:45集合（3・4限）"),
+        FixedLesson(3506, 20261029, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：障害者歯科", "障害者歯科", "12:50 - 16:05"),
+        FixedLesson(3507, 20261105, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：小児歯科", "小児歯科", "12:50 - 16:05"),
+        FixedLesson(3508, 20261112, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：矯正歯科", "矯正歯科", "12:50 - 16:05"),
+        FixedLesson(3509, 20261119, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：咬合義歯", "咬合義歯", "12:50 - 16:05"),
+        FixedLesson(3510, 20261120, 3, "3・4限",
+                    "医療関連部門講義：矯正歯科・小児歯科", "第7講義室", "12:50 - 16:05"),
+        FixedLesson(3511, 20261126, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：インプラント", "インプラント", "12:50 - 16:05"),
+        FixedLesson(3512, 20261203, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：2口外", "2口外", "12:50 - 16:05"),
+        FixedLesson(3513, 20261218, 3, "3・4限",
+                    "臨床見学演習・実習Ⅱ（B班）：1口外", "1口外", "12:50 - 16:05")
+    ]
+
     static func entries(calendar: Calendar) -> [ClassEntry] {
         let first = calendar.date(from: DateComponents(year: 2026, month: 10, day: 2))!
         let last = calendar.date(from: DateComponents(year: 2027, month: 2, day: 8))!
@@ -86,6 +139,36 @@ enum AutumnSchedule {
             guard let next = calendar.date(byAdding: .day, value: 1, to: date) else { break }
             date = next
         }
-        return entries
+
+        for lesson in fixedLessons {
+            let lessonDate = calendar.date(from: DateComponents(
+                year: lesson.day / 10000,
+                month: lesson.day / 100 % 100,
+                day: lesson.day % 100
+            ))!
+            let id = UUID(uuidString: String(
+                format: "A0260000-0000-4000-8000-%08d%04d", lesson.day, lesson.code
+            ))!
+            entries.append(ClassEntry(
+                id: id,
+                date: lessonDate,
+                period: lesson.period,
+                periodDisplay: lesson.periodDisplay,
+                subject: lesson.subject,
+                location: lesson.location,
+                isExam: false,
+                customTimeRange: lesson.customTimeRange
+            ))
+        }
+
+        return entries.sorted {
+            if $0.date == $1.date {
+                if $0.period == $1.period {
+                    return $0.subject.localizedCompare($1.subject) == .orderedAscending
+                }
+                return $0.period < $1.period
+            }
+            return $0.date < $1.date
+        }
     }
 }
